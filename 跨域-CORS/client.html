@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>跨域-CORS</h1>
+    <button id="btn">点击</button>
+    <script>
+        btn.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:5000/login', true);
+            xhr.setRequestHeader('token', '123')
+            //xhr.setRequestHeader('Content-Type','text/plain'); // 传输文本
+            xhr.setRequestHeader('Content-Type', "application/json"); // 客户端和服务器说我传递的数据类型的格式
+            xhr.responseType = 'json'; // 要求返回的是json
+            xhr.withCredentials = true;//客户端允许跨域携带cookie
+            xhr.onload = function() {
+                // 浏览器会根据服务器返回的类型进行解析
+                console.log(xhr.response)
+            }
+            // 传递的数据格式是字符串类型
+            xhr.send('{"name":"zf"}');
+        })
+    </script>
+</body>
+
+</html>

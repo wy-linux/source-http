@@ -1,0 +1,1 @@
+console.log('协商缓存-Etag');
