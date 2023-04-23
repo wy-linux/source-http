@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>范围请求-Content-Range</label>
+    <input id="numBytes" type="text" placeholder="0-20">
+    <button onclick="sendPartialRequest()">Send Partial Request</button>
+    <p id="returnedData"></p>
+    <script>
+        const byteInput = document.getElementById('numBytes');
+        const returnedData = document.getElementById('returnedData');
+        function sendPartialRequest() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/content-range.js');
+            xhr.setRequestHeader('Range', `bytes=${byteInput.value}`);
+            xhr.send();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 206) {
+                    returnedData.innerText = xhr.responseText;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
